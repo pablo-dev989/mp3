@@ -1,0 +1,31 @@
+{% extends 'phones/base.html' %}
+
+{% block body %}
+    <h1>Create smartphone</h1>
+    <form id="phone-form" action="{% url 'smartphone_create' %}" method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+      <input type="submit" value="Save">
+    </form>
+
+    <script>
+        const form = document.querySelector('#phone-form');
+        const input = document.querySelector('#id_created_at');
+
+        form.addEventListener('submit', function (event) {
+            const seleccionada = new Date(input.value);
+            console.log(seleccionada);
+            const hoy = new Date();
+
+            if (seleccionada > hoy) {
+                event.preventDefault();
+                alert('La fecha no puede ser futura');
+            }
+        });
+
+    </script>
+
+{% endblock %}
+
